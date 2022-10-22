@@ -3,6 +3,7 @@ import { Typography, List } from "@mui/material";
 import { API_KEY } from "../../helpers/helpers";
 import axios from "axios";
 import Article from "../Article/Article";
+import { ArticleObj } from "../../helpers/interfaces";
 const HomePage = () => {
   // todaysArticles
   const [todaysArticles, setTodaysArticles] = useState([]);
@@ -47,10 +48,20 @@ const HomePage = () => {
       >
         Today's hottest news:
       </Typography>
-      {todaysArticles.length !== 0 && <Article art={todaysArticles[3]} key={1} />}
-      <List sx={{ width: "100%", alignContent: "center" }}></List>
+      <List sx={{ width: "100%", alignContent: "center" }}>
+
+        {todaysArticles.length !== 0 &&
+          todaysArticles.map((art: ArticleObj) => {
+            return <Article art={art} key={art.title} />;
+          })}
+          
+      </List>
     </>
   );
 };
 
 export default HomePage;
+
+// [1, 2, 3, 4, 5].map((el) => {
+//   return el * 2;
+// });
