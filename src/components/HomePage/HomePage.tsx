@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Typography, List } from "@mui/material";
 import { API_KEY } from "../../helpers/helpers";
+import axios from "axios";
 const HomePage = () => {
   // todaysArticles
   const [todaysArticles, setTodaysArticles] = useState([]);
@@ -19,6 +20,10 @@ const HomePage = () => {
       day - 1
     }`;
     // fetch...
+    // axios vs fetch, React Query?
+    axios.get(
+      `https://newsapi.org/v2/everything?q=world&from=${date}&language=en&sortBy=popularity&apiKey=${API_KEY}`
+    );
 
     // cleanup function
     // return () => {}
