@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Typography, List } from "@mui/material";
 import { API_KEY } from "../../helpers/helpers";
 import axios from "axios";
+import Article from "../Article/Article";
 const HomePage = () => {
   // todaysArticles
   const [todaysArticles, setTodaysArticles] = useState([]);
@@ -21,9 +22,17 @@ const HomePage = () => {
     }`;
     // fetch...
     // axios vs fetch, React Query?
-    axios.get(
-      `https://newsapi.org/v2/everything?q=world&from=${date}&language=en&sortBy=popularity&apiKey=${API_KEY}`
-    );
+    axios
+      .get(
+        `https://newsapi.org/v2/everything?q=world&from=${date}&language=en&sortBy=popularity&apiKey=${API_KEY}`
+      )
+      .then((response) => {
+        // console.log(response.data.articles);
+        setTodaysArticles(response.data.articles);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
 
     // cleanup function
     // return () => {}
@@ -38,6 +47,8 @@ const HomePage = () => {
       >
         Today's hottest news:
       </Typography>
+      {todaysArticles.length !== 0 && <Article art={todaysArticles[3]} key={1} />}
+      <List sx={{ width: "100%", alignContent: "center" }}></List>
     </>
   );
 };
