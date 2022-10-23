@@ -19,6 +19,8 @@ const RegisterForm = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => console.log("Success"))
         .catch((err) => console.error(err.message));
+    } else {
+      alert("Passwords are different!");
     }
   };
 
