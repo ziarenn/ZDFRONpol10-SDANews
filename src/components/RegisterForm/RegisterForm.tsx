@@ -3,7 +3,37 @@ import { Card, Typography, TextField, Button } from "@mui/material";
 import { auth } from "../../helpers/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 const RegisterForm = () => {
-  return <form>{/* ... */}</form>;
+  return (
+    <form
+      style={{ display: "flex", flexDirection: "column", marginTop: "1rem" }}
+    >
+      <Typography align="center" variant="h2" sx={{ fontSize: "1.5rem" }}>
+        Register new account
+      </Typography>
+      <TextField
+        type="email"
+        placeholder="email"
+        sx={{ display: "block", my: ".5rem", mx: "auto" }}
+      />
+      <TextField
+        type="password"
+        placeholder="password"
+        sx={{ display: "block", my: ".5rem", mx: "auto" }}
+      />
+      <TextField
+        type="password"
+        placeholder="repeat password"
+        sx={{ display: "block", my: ".5rem", mx: "auto" }}
+      />
+      <Button
+        variant="contained"
+        type="submit"
+        sx={{ display: "block", mx: "auto" }}
+      >
+        Register
+      </Button>
+    </form>
+  );
 };
 
 export default RegisterForm;
