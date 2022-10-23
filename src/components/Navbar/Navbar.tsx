@@ -9,12 +9,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import { NavbarProps } from "../../helpers/interfaces";
 const pages = ["Home", "Search"];
 
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({ loggedIn }) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -103,13 +103,30 @@ const Navbar = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <Link to="/login" style={{ textDecoration: "none" }}>
+            <Link
+              to={loggedIn ? "/user" : "/login"}
+              style={{ textDecoration: "none" }}
+            >
+              {loggedIn ? (
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                 </IconButton>
-              </Link>
-            </Tooltip>
+              ) : (
+                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                  Log in
+                </Button>
+              )}
+              {/* {loggedIn && (
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              )}
+              {!loggedIn && (
+                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                  Log in
+                </Button>
+              )} */}
+            </Link>
           </Box>
         </Toolbar>
       </Container>
@@ -118,3 +135,15 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+// // 1 typ renderowania warunkowego (&&)
+// // w zaleznosci od warunku wyswietlamy lub nie wyswietlamy elementu A
+// {
+//   jakasWartosc === jakasInnaWartosc && <p>123</p>;
+// }
+
+// // 2 typ renderowania warunkowego
+// // w zaleznosci od warunku renderujemy element A lub element B
+// {
+//   jakasWartosc === jakasInnaWartosc ? <p>123</p> : <label>321</label>;
+// }

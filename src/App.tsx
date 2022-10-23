@@ -1,16 +1,28 @@
-import React from "react";
+import { useState } from "react";
 import HomePage from "./components/HomePage/HomePage";
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 import LoginPage from "./components/LoginPage/LoginPage";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./helpers/firebaseConfig";
 // localhost:3000/login
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  });
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar loggedIn={loggedIn} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterForm />} />
