@@ -7,9 +7,19 @@ import { RegisterFormData } from "../../helpers/interfaces";
 const RegisterForm = () => {
   const { register, handleSubmit } = useForm<RegisterFormData>();
 
+  // 1. Zarejestrować resztę inputów (nadaj im nazwy rejestracyjne password i password2), zaktualizuj odpowiednio interface RegisterFormData
+  // W submitHandler:
+  // 2. Sprawdz czy password jest równy password2 (zrób to ifem)
+  // 3. Jeżeli password jest password2, wywołaj funkcję createUserWithEmailAndPassword z odpowiednimi argumentami.
+  // 4. Na funkcję createUser... dodaj thena w którym wykonaj console.log('Successfully registered') oraz catcha z console.log(err.message)
+
   // data to obiekt który zawiera pary klucz:wartosc (nazwaRejestracyjnaInputu:wartoscInputuPrzySubmit)
-  const submitHandler = (data: RegisterFormData) => {
-    console.log(data);
+  const submitHandler = ({ email, password, password2 }: RegisterFormData) => {
+    if (password === password2) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => console.log("Success"))
+        .catch((err) => console.error(err.message));
+    }
   };
 
   // submit => handleSubmit() *zbiera wartości i tworzy obiekt data* => submitHandler(data)
@@ -42,11 +52,13 @@ const RegisterForm = () => {
           type="password"
           placeholder="password"
           sx={{ display: "block", my: ".5rem", mx: "auto" }}
+          {...register("password", { required: true })}
         />
         <TextField
           type="password"
           placeholder="repeat password"
           sx={{ display: "block", my: ".5rem", mx: "auto" }}
+          {...register("password2", { required: true })}
         />
         <Button
           variant="contained"
