@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Card, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { auth } from "../../helpers/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -13,32 +13,37 @@ const LoginForm = () => {
       .catch((err) => console.error(err.message));
   };
   return (
-    <form
-      onSubmit={handleSubmit(submitHandler)}
-      style={{ display: "flex", flexDirection: "column" }}
-    >
-      <TextField
-        variant="outlined"
-        type="email"
-        placeholder="email"
-        sx={{ display: "block", my: ".5rem", mx: "auto" }}
-        {...register("email", { required: true })}
-      />
-      <TextField
-        variant="outlined"
-        type="password"
-        placeholder="password"
-        sx={{ display: "block", my: ".8rem", mx: "auto" }}
-        {...register("password", { required: true })}
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        sx={{ display: "block", mx: "auto", mb: "1rem" }}
+    <Card sx={{ my: "1rem", p: "5px" }}>
+      <form
+        onSubmit={handleSubmit(submitHandler)}
+        style={{ display: "flex", flexDirection: "column" }}
       >
-        Log in
-      </Button>
-    </form>
+        <Typography align="center" variant="h2" sx={{ fontSize: "2rem" }}>
+          Log in
+        </Typography>
+        <TextField
+          variant="outlined"
+          type="email"
+          placeholder="email"
+          sx={{ display: "block", my: ".5rem", mx: "auto" }}
+          {...register("email", { required: true })}
+        />
+        <TextField
+          variant="outlined"
+          type="password"
+          placeholder="password"
+          sx={{ display: "block", my: ".8rem", mx: "auto" }}
+          {...register("password", { required: true })}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ display: "block", mx: "auto", mb: "1rem" }}
+        >
+          Log in
+        </Button>
+      </form>
+    </Card>
   );
 };
 

@@ -3,6 +3,7 @@ import HomePage from "./components/HomePage/HomePage";
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
+import LoginPage from "./components/LoginPage/LoginPage";
 // localhost:3000/login
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </div>

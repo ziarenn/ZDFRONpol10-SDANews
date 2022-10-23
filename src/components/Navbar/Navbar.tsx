@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
+import { Link } from "react-router-dom";
 const pages = ["Home", "Search"];
 
 const Navbar = () => {
@@ -66,11 +66,20 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Home</Typography>
                 </MenuItem>
-              ))}
+              </Link>
+
+              <Link
+                to="/search"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Search</Typography>
+                </MenuItem>
+              </Link>
             </Menu>
           </Box>
 
@@ -95,9 +104,11 @@ const Navbar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Link>
             </Tooltip>
           </Box>
         </Toolbar>

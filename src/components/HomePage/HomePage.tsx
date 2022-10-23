@@ -62,6 +62,3 @@ const HomePage = () => {
 
 export default HomePage;
 
-// [1, 2, 3, 4, 5].map((el) => {
-//   return el * 2;
-// });

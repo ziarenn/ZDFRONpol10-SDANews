@@ -1,7 +1,7 @@
 import React from "react";
 import { ArticleProps } from "../../helpers/interfaces";
 import { Card, ListItem, ListItemText } from "@mui/material";
-// 2 propsy
+
 const Article: React.FC<ArticleProps> = ({ art }) => {
   console.log(art);
   return (
