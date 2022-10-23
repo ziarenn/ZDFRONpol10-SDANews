@@ -8,3 +8,7 @@ export interface ArticleProps {
   art: ArticleObj;
   key: string;
 }
+
+export interface RegisterFormData {
+  email: string;
+}
