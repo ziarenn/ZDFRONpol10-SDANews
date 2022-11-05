@@ -36,7 +36,7 @@ const HomePage = () => {
       });
 
     // cleanup function
-    // return () => {}
+    // return () => {};
   }, []);
 
   return (
@@ -49,16 +49,13 @@ const HomePage = () => {
         Today's hottest news:
       </Typography>
       <List sx={{ width: "100%", alignContent: "center" }}>
-
         {todaysArticles.length !== 0 &&
           todaysArticles.map((art: ArticleObj) => {
             return <Article art={art} key={art.title} />;
           })}
-          
       </List>
     </>
   );
 };
 
 export default HomePage;
-
