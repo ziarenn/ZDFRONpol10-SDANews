@@ -1,12 +1,23 @@
 import { Button, Card, Typography } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { auth, storage } from "../../helpers/firebaseConfig";
 import { ProfilePhotoFormData } from "../../helpers/interfaces";
+import { ref, uploadBytes } from "firebase/storage";
 const ProfilePhotoForm = () => {
   const { register, handleSubmit } = useForm<ProfilePhotoFormData>();
 
   const submitHandler = (data: ProfilePhotoFormData) => {
-    console.log(data);
+    const photo = data.profilePhoto[0];
+    if (auth.currentUser) {
+      const storageRef = ref(
+        storage,
+        `/users/${auth.currentUser.uid}/profilePhoto`
+      );
+      uploadBytes(storageRef, photo)
+        .then(() => console.log("Successfully uploaded the photo"))
+        .catch((err) => console.error(err.message));
+    }
   };
 
   return (
@@ -17,6 +28,7 @@ const ProfilePhotoForm = () => {
         </Typography>
         <Button
           variant="contained"
+          component="label"
           sx={{
             display: "block",
             mx: "auto",

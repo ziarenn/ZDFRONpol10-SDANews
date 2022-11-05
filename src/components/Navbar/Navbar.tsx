@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,9 +12,14 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { NavbarProps } from "../../helpers/interfaces";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage, auth } from "../../helpers/firebaseConfig";
 const pages = ["Home", "Search"];
 
+// 7. W Avatarze (u mnie linia 120), ustaw atrybut src na stan profilePhoto
 const Navbar: React.FC<NavbarProps> = ({ loggedIn }) => {
+  // 1.
+  const [profilePhoto, setProfilePhoto] = useState<string | undefined>("/");
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -29,9 +34,17 @@ const Navbar: React.FC<NavbarProps> = ({ loggedIn }) => {
     setAnchorElNav(null);
   };
 
-  //   const handleCloseUserMenu = () => {
-  //     setAnchorElUser(null);
-  //   };
+  useEffect(() => {
+    if (loggedIn && auth.currentUser) {
+      const storageRef = ref(
+        storage,
+        `/users/${auth.currentUser.uid}/profilePhoto`
+      );
+      getDownloadURL(storageRef)
+        .then((url) => setProfilePhoto(url))
+        .catch((err) => setProfilePhoto(undefined));
+    }
+  }, [loggedIn]);
 
   return (
     <AppBar position="static">
@@ -109,7 +122,7 @@ const Navbar: React.FC<NavbarProps> = ({ loggedIn }) => {
             >
               {loggedIn ? (
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src={profilePhoto} />
                 </IconButton>
               ) : (
                 <Button sx={{ my: 2, color: "white", display: "block" }}>
