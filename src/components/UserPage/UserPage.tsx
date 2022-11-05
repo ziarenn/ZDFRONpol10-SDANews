@@ -3,52 +3,55 @@ import { Button, Typography } from "@mui/material";
 import { auth } from "../../helpers/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { UserPageProps } from "../../helpers/interfaces";
+import ProfilePhotoForm from "../ProfilePhotoForm/ProfilePhotoForm";
 const UserPage: React.FC<UserPageProps> = ({ loggedIn }) => {
   return (
     <>
-      {loggedIn && auth.currentUser && <>
-        {/* 1. */}
-        <Typography
-          variant="h2"
-          sx={{
-            fontSize: "2rem",
-            my: "1rem",
-            borderBottom: "1px solid #1976d2",
-            pb: ".5rem",
-          }}
-          align="center"
-        >
-          Your profile
-        </Typography>
-        {/* 2. */}
-        <Typography
-          variant="h5"
-          sx={{ fontSize: "1rem", my: "1rem", mx: "auto" }}
-          align="center"
-        >
-          Your email: {auth.currentUser.email}
-        </Typography>
-        {/* ProfilePhotoForm */}
-        <Button
-          variant="outlined"
-          sx={{ display: "block", mx: "auto", my: "1rem" }}
-          onClick={() => signOut(auth)}
-        >
-          Log out
-        </Button>
-        <Typography
-          variant="h3"
-          align="center"
-          sx={{
-            fontSize: "1.7rem",
-            fontWeight: 100,
-            borderTop: "1px solid #1976d2",
-            pt: ".3rem",
-          }}
-        >
-          Liked posts
-        </Typography>
-      </>}
+      {loggedIn && auth.currentUser && (
+        <>
+          {/* 1. */}
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: "2rem",
+              my: "1rem",
+              borderBottom: "1px solid #1976d2",
+              pb: ".5rem",
+            }}
+            align="center"
+          >
+            Your profile
+          </Typography>
+          {/* 2. */}
+          <Typography
+            variant="h5"
+            sx={{ fontSize: "1rem", my: "1rem", mx: "auto" }}
+            align="center"
+          >
+            Your email: {auth.currentUser.email}
+          </Typography>
+          <ProfilePhotoForm />
+          <Button
+            variant="outlined"
+            sx={{ display: "block", mx: "auto", my: "1rem" }}
+            onClick={() => signOut(auth)}
+          >
+            Log out
+          </Button>
+          <Typography
+            variant="h3"
+            align="center"
+            sx={{
+              fontSize: "1.7rem",
+              fontWeight: 100,
+              borderTop: "1px solid #1976d2",
+              pt: ".3rem",
+            }}
+          >
+            Liked posts
+          </Typography>
+        </>
+      )}
     </>
   );
 };
