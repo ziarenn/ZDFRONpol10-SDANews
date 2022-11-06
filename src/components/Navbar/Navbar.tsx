@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,10 +14,12 @@ import { Link } from "react-router-dom";
 import { NavbarProps } from "../../helpers/interfaces";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage, auth } from "../../helpers/firebaseConfig";
+import { authContext } from "../../helpers/authContext";
 const pages = ["Home", "Search"];
 
 // 7. W Avatarze (u mnie linia 120), ustaw atrybut src na stan profilePhoto
-const Navbar: React.FC<NavbarProps> = ({ loggedIn }) => {
+const Navbar = () => {
+  const loggedIn = useContext(authContext);
   // 1.
   const [profilePhoto, setProfilePhoto] = useState<string | undefined>("/");
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);

@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./helpers/firebaseConfig";
 import UserPage from "./components/UserPage/UserPage";
 import SearchPage from "./components/SearchPage/SearchPage";
+import { authContext } from "./helpers/authContext";
 // localhost:3000/login
 
 function App() {
@@ -24,14 +25,16 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar loggedIn={loggedIn} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/user" element={<UserPage loggedIn={loggedIn} />} />
-          <Route path="/search" element={<SearchPage />} />
-        </Routes>
+        <authContext.Provider value={loggedIn}>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/user" element={<UserPage />} />
+            <Route path="/search" element={<SearchPage />} />
+          </Routes>
+        </authContext.Provider>
       </BrowserRouter>
     </div>
     /* 1 grupa: elementy ktore maja sie caly czas wyswietlac, komponenty grupy 1 będą umiejscowione bezpośrednio w komponencie BrowserRouter */

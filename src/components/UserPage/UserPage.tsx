@@ -1,10 +1,12 @@
-import React from "react";
+import { useContext } from "react";
 import { Button, Typography } from "@mui/material";
 import { auth } from "../../helpers/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { UserPageProps } from "../../helpers/interfaces";
 import ProfilePhotoForm from "../ProfilePhotoForm/ProfilePhotoForm";
-const UserPage: React.FC<UserPageProps> = ({ loggedIn }) => {
+import { authContext } from "../../helpers/authContext";
+const UserPage = () => {
+  const loggedIn = useContext(authContext);
   return (
     <>
       {loggedIn && auth.currentUser && (
