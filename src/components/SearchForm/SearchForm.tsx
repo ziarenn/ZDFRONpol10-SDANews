@@ -1,18 +1,14 @@
 import { Button, TextField } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
-// 1. Import i wywolanie useForm
-// 2. Stwórz pustą funkcję submitHandler
-// JSX:
-// 3. <form> (HTML) z onSubmit tak jak w kazdym innym, style display flex, flexDirection column
-// W środku form:
-// 4. TextField (MUI) placeholder Keyword, zarejestrowac pod nazwa keyword, my '.5rem', diplsay block, mx auto
-// 5. Button (MUI) variant contained, type submit, display block, mx auto, textContent Seatch
+import { SearchFormData, SearchFormProps } from "../../helpers/interfaces";
 
-const SearchForm = () => {
-  const { register, handleSubmit } = useForm();
+const SearchForm: React.FC<SearchFormProps> = ({ setKeyword }) => {
+  const { register, handleSubmit } = useForm<SearchFormData>();
 
-  const submitHandler = () => {};
+  const submitHandler = ({ keyword }: SearchFormData) => {
+    setKeyword(keyword);
+  };
 
   return (
     <form
@@ -36,3 +32,9 @@ const SearchForm = () => {
 };
 
 export default SearchForm;
+
+// 1. Stwórz nowy koponent SearchPage
+// 2. W tym komponenecie (pkt 1) stwórz stan keyword
+// 3. Wyświetl w JSX komponent SearchForm, funkcję aktualizującą stan keyword przekaż propsem do SearchForm
+// 4. Stwórz interface dla SearchForm, otypuj submitHandler i useForm
+// 5. Wywołaj funkcję aktualizującą stan keyword, do stanu keyword wysyłaj wartość keyword z SearchForma
