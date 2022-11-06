@@ -1,9 +1,20 @@
-import React from "react";
+import { useState, useContext } from "react";
 import { ArticleProps } from "../../helpers/interfaces";
 import { Card, ListItem, ListItemText } from "@mui/material";
-
+import { authContext } from "../../helpers/authContext";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 const Article: React.FC<ArticleProps> = ({ art }) => {
-  console.log(art);
+  const [liked, setLiked] = useState<boolean>(false);
+  const iconStyles = {
+    float: "right",
+    mr: "3px",
+    my: "3px",
+    color: liked ? "red" : "black",
+  };
+  const loggedIn = useContext(authContext);
+
+  // 6. Przy kliknięciu na FavoriteBorderIcon, ustaw stan liked na true, przy kliknięciu na FavoriteIcon ustaw stan liked na false
   return (
     <ListItem>
       <Card variant="outlined" sx={{ mb: "10px" }}>
@@ -11,6 +22,18 @@ const Article: React.FC<ArticleProps> = ({ art }) => {
           <img src={art.urlToImage} alt={art.title} style={{ width: "100%" }} />
           <ListItemText sx={{ color: "black" }}>{art.title}</ListItemText>
         </a>
+        {loggedIn && (
+          <>
+            {liked ? (
+              <FavoriteIcon sx={iconStyles} onClick={() => setLiked(false)} />
+            ) : (
+              <FavoriteBorderIcon
+                sx={iconStyles}
+                onClick={() => setLiked(true)}
+              />
+            )}
+          </>
+        )}
       </Card>
     </ListItem>
   );
@@ -18,5 +41,6 @@ const Article: React.FC<ArticleProps> = ({ art }) => {
 
 export default Article;
 
-// <ul> => <List>
-// <li> => <ListItem>
+// const x = {
+//   y: a ? 'b' : 'c'
+// }

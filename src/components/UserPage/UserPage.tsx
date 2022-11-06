@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Button, Typography } from "@mui/material";
 import { auth } from "../../helpers/firebaseConfig";
 import { signOut } from "firebase/auth";
-import { UserPageProps } from "../../helpers/interfaces";
 import ProfilePhotoForm from "../ProfilePhotoForm/ProfilePhotoForm";
 import { authContext } from "../../helpers/authContext";
 const UserPage = () => {
@@ -11,7 +10,6 @@ const UserPage = () => {
     <>
       {loggedIn && auth.currentUser && (
         <>
-          {/* 1. */}
           <Typography
             variant="h2"
             sx={{
@@ -24,7 +22,6 @@ const UserPage = () => {
           >
             Your profile
           </Typography>
-          {/* 2. */}
           <Typography
             variant="h5"
             sx={{ fontSize: "1rem", my: "1rem", mx: "auto" }}

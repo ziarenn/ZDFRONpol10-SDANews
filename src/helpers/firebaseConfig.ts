@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyD5AjeSHwoCGY_3O3niAL8qeAmD5KETlKc",
   authDomain: "zdfronpol10-sdanews.firebaseapp.com",
@@ -14,3 +15,4 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
+export const firestore = getFirestore(app);
