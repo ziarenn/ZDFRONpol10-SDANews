@@ -1,11 +1,23 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import { auth } from "../../helpers/firebaseConfig";
+import { auth, firestore } from "../../helpers/firebaseConfig";
 import { signOut } from "firebase/auth";
 import ProfilePhotoForm from "../ProfilePhotoForm/ProfilePhotoForm";
 import { authContext } from "../../helpers/authContext";
+import { onSnapshot, collection } from "firebase/firestore";
+import { ArticleObj } from "../../helpers/interfaces";
+import Article from "../Article/Article";
 const UserPage = () => {
   const loggedIn = useContext(authContext);
+  const [likedArticles, setLikedArticles] = useState<ArticleObj[]>([]);
+  if (loggedIn && auth.currentUser) {
+    onSnapshot(collection(firestore, auth.currentUser.uid), (querySnapshot) => {
+      const articles: ArticleObj[] = [];
+      querySnapshot.forEach((doc) => articles.push(doc.data() as ArticleObj));
+      setLikedArticles(articles);
+    });
+  }
+
   return (
     <>
       {loggedIn && auth.currentUser && (
@@ -49,6 +61,9 @@ const UserPage = () => {
           >
             Liked posts
           </Typography>
+          {likedArticles.map((article: ArticleObj) => {
+            return <Article art={article} key={article.title} />;
+          })}
         </>
       )}
     </>
