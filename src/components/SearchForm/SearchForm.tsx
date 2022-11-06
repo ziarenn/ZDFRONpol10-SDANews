@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { SearchFormData, SearchFormProps } from "../../helpers/interfaces";
 
 const SearchForm: React.FC<SearchFormProps> = ({ setKeyword }) => {
+  
   const { register, handleSubmit } = useForm<SearchFormData>();
 
   const submitHandler = ({ keyword }: SearchFormData) => {

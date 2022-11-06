@@ -7,6 +7,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./helpers/firebaseConfig";
 import UserPage from "./components/UserPage/UserPage";
+import SearchPage from "./components/SearchPage/SearchPage";
 // localhost:3000/login
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/user" element={<UserPage loggedIn={loggedIn} />} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </BrowserRouter>
     </div>
