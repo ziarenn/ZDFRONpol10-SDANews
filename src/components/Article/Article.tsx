@@ -4,6 +4,8 @@ import { Card, ListItem, ListItemText } from "@mui/material";
 import { authContext } from "../../helpers/authContext";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { auth, firestore } from "../../helpers/firebaseConfig";
+import { setDoc, doc, deleteDoc } from "firebase/firestore";
 const Article: React.FC<ArticleProps> = ({ art }) => {
   const [liked, setLiked] = useState<boolean>(false);
   const iconStyles = {
@@ -14,7 +16,22 @@ const Article: React.FC<ArticleProps> = ({ art }) => {
   };
   const loggedIn = useContext(authContext);
 
-  // 6. Przy kliknięciu na FavoriteBorderIcon, ustaw stan liked na true, przy kliknięciu na FavoriteIcon ustaw stan liked na false
+  const likeTheArticle = async () => {
+    if (loggedIn && auth.currentUser) {
+      await setDoc(doc(firestore, auth.currentUser.uid, art.title), art);
+
+      setLiked(true);
+    }
+  };
+
+  const unlikeTheArticle = async () => {
+    if (loggedIn && auth.currentUser) {
+      await deleteDoc(doc(firestore, auth.currentUser.uid, art.title));
+
+      setLiked(false);
+    }
+  };
+
   return (
     <ListItem>
       <Card variant="outlined" sx={{ mb: "10px" }}>
@@ -25,12 +42,9 @@ const Article: React.FC<ArticleProps> = ({ art }) => {
         {loggedIn && (
           <>
             {liked ? (
-              <FavoriteIcon sx={iconStyles} onClick={() => setLiked(false)} />
+              <FavoriteIcon sx={iconStyles} onClick={unlikeTheArticle} />
             ) : (
-              <FavoriteBorderIcon
-                sx={iconStyles}
-                onClick={() => setLiked(true)}
-              />
+              <FavoriteBorderIcon sx={iconStyles} onClick={likeTheArticle} />
             )}
           </>
         )}
